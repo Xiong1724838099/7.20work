@@ -56,15 +56,64 @@ function wheel(wins, opts,bopts) {
     }    
     //创建按钮容器
     var btnBox=document.createElement("div");
-    btn
+    btn.style.cssText="position:absolute;left:0;right:0;bottom:"+btnPos[1]+";height:20px;width:300px;"
+    //创建按钮
   for(var i=0;i<imgLength-1;i++){
-    var btn = document.createElement("div");
+    var btns = document.createElement("div");
       if(i=0){
-        btn.style.cssText="height:20px;width:300px;position:absolute;left:0;right:0;bottom:"+btnPos[1]+";background:"+btnColor+";float:left;cursor:pointer;margin:0 10px;border-radius:50%;"
+        btns.style.cssText="height:20px;width:20px;background:"+btnColorr+";float:left;cursor:pointer;margin:0 10px;border-radius:50%;"
       }else{
       
-    btn.style.cssText="height:20px;width:300px;position:absolute;left:0;right:0;bottom:"+btnPos[1]+";background:"+btnSelect+";float:left;cursor:pointer;margin:0 10px;border-radius:50%;"}
+    btns.style.cssText="height:20px;width:20px;;background:"+btnSelect+";float:left;cursor:pointer;margin:0 10px;border-radius:50%;"}
   }
     btnBox.appendChild(btn);
 }
-wins.appendChild(brnBox)
+wins.appendChild(brnBox)；
+
+
+//创建轮播  var win = document.getElementsByClassName("window")[0];
+var wid = parseInt(getComputedStyle(wins, null).width);
+var num = 0;
+//无缝轮播
+/*及时完成
+  */
+
+//自动轮播
+var t = setInterval(move, 3000)
+function move() {
+    num++
+    if (num > btns.length-1) {
+        animate(box,{"margin-left": -num * wid},500,Tween.Linear,function(){
+         box.style.marginLeft=0;
+        })
+        num = 0;
+    }else{
+    animate(box, {
+        "margin-left": -num * wid
+    }, 500)}
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].style.background = "#ccc";
+    }
+    btns[num].style.background = "#aaa"
+}
+//按钮
+for (let i = 0; i < btns.length; i++) {
+    btns[i].onclick = function () {
+        num = i;
+        animate(box, {
+            "margin-left": -num * wid
+        }, 500)
+        for (var j = 0; j < btns.length; j++) {
+            btns[j].style.background = "#ccc";
+        }
+        btns[num].style.background = "#aaa"
+    }
+
+}
+//鼠标移入移出
+wins.onmouseover = function () {
+    clearInterval(t)
+}
+wins.onmouseout = function () {
+    t = setInterval(move, 3000)
+}
