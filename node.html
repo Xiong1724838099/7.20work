@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>利用节点创建轮播图</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="window"></div>
+    <script src="js/aniMath.js"></script>
+    <script src="js/wheel.js"></script>
+    <script>
+
+        wheel((".window"), {
+            img: ["https://img.alicdn.com/tfs/TB1ftPuNLb2gK0jSZK9XXaEgFXa-1130-500.jpg_q100.jpg_.webp", "https://aecpm.alicdn.com/simba/img/TB1_JXrLVXXXXbZXVXXSutbFXXX.jpg", "https://aecpm.alicdn.com/simba/img/TB1W4nPJFXXXXbSXpXXSutbFXXX.jpg"],
+            imgColor: ["#f43c17", "#c0c0c0","#c0c0c0"],
+            imgSize: [1130, 500],
+            links: ["https://wwww.baidu.com", "https://www.tmall.com/", "http://118.190.150.35:6005/#/login"] },{
+            btnColor: "red",
+            btnSelect: "blue",
+            btnPos: ["center", "20"]}
+
+       
+        )
+
+    </script>
+</body>
+
+</html>
