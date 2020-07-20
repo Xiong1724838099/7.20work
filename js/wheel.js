@@ -1,4 +1,4 @@
-function wheel(wins, opts,bopts) {
+function wheel(wins, opts,bopts,runopt) {
     var wins = document.querySelector(wins);
     if (!wins && wins.nodeType == 1) {
         console.error("窗口元素not defind");
@@ -29,8 +29,17 @@ function wheel(wins, opts,bopts) {
            }
        }
    }
+   if(runopt.runStyle=="liner"||!(runopt.runStyle)){
+       runStyle=Tween.Linear;
+   }else if(runopt.runStyle=="in"){
+       runStyle=Tween.Quad.easeIn;
+   }else if(runopt.runStyle=="out"){
+       runStyle=Tween.Quad.easeOut;
+   }
    // imgSize.some()
     console.log(imgSize)
+    var Time=runopt.time*1000||5000;
+    var runStyle=null;
     var imgColor=opts.imgColor;
     var links = opts.links;
     var btnColor = bopts.btnColor || "red";
@@ -75,15 +84,13 @@ wins.appendChild(brnBox)
 var wid = parseInt(getComputedStyle(wins, null).width);
 var num = 0;
 //无缝轮播
-/*及时完成
-  */
-
+//及时完成
 //自动轮播
-var t = setInterval(move, 3000)
+var t = setInterval(move,time)
 function move() {
     num++
     if (num > btns.length-1) {
-        animate(box,{"margin-left": -num * wid},500,Tween.Linear,function(){
+        animate(box,{"margin-left": -num * wid},500,runStyle,function(){
          box.style.marginLeft=0;
         })
         num = 0;
@@ -92,9 +99,9 @@ function move() {
         "margin-left": -num * wid
     }, 500)}
     for (var i = 0; i < btns.length; i++) {
-        btns[i].style.background = "#ccc";
+        btns[i].style.background = btnSelect;
     }
-    btns[num].style.background = "#aaa"
+    btns[num].style.background = btnColor;
 }
 //按钮
 for (let i = 0; i < btns.length; i++) {
@@ -104,9 +111,9 @@ for (let i = 0; i < btns.length; i++) {
             "margin-left": -num * wid
         }, 500)
         for (var j = 0; j < btns.length; j++) {
-            btns[j].style.background = "#ccc";
+            btns[j].style.background = btnSelect;
         }
-        btns[num].style.background = "#aaa"
+        btns[num].style.background = btnColor;
     }
 
 }
@@ -115,5 +122,5 @@ wins.onmouseover = function () {
     clearInterval(t)
 }
 wins.onmouseout = function () {
-    t = setInterval(move, 3000)
+    t = setInterval(move, time)
 }
