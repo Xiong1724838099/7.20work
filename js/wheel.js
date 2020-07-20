@@ -68,7 +68,7 @@ function wheel(wins, opts,bopts) {
   }
     btnBox.appendChild(btn);
 }
-wins.appendChild(brnBox)；
+wins.appendChild(brnBox)
 
 
 //创建轮播  var win = document.getElementsByClassName("window")[0];
